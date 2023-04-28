@@ -5,7 +5,70 @@ function HomePage({ data }) {
     if (!data) {
         return <div>Loading...</div>
     }
-    //{ JSON.stringify(data) }
+
+    function handleCreateComment() {
+        <div
+            className="modal fade"
+            id="createModal"
+            tabIndex={-1}
+            role="dialog"
+            aria-labelledby="exampleModalLabel"
+            aria-hidden="true"
+        >
+            <div className="modal-dialog" role="document">
+                <div className="modal-content">
+                    <div className="modal-header">
+                        <h5 className="modal-title" id="exampleModalLabel">
+                            New message
+                        </h5>
+                        <button
+                            type="button"
+                            className="close"
+                            data-dismiss="modal"
+                            aria-label="Close"
+                        >
+                            <span aria-hidden="true">×</span>
+                        </button>
+                    </div>
+                    <div className="modal-body">
+                        <form>
+                            <div className="form-group">
+                                <label htmlFor="recipient-name" className="col-form-label">
+                                    Recipient:
+                                </label>
+                                <input type="text" className="form-control" id="recipient-name" />
+                            </div>
+                            <div className="form-group">
+                                <label htmlFor="message-text" className="col-form-label">
+                                    Message:
+                                </label>
+                                <textarea
+                                    className="form-control"
+                                    id="message-text"
+                                    defaultValue={""}
+                                />
+                            </div>
+                        </form>
+                    </div>
+                    <div className="modal-footer">
+                        <button
+                            type="button"
+                            className="btn btn-secondary"
+                            data-dismiss="modal"
+                        >
+                            Close
+                        </button>
+                        <button type="button" className="btn btn-primary">
+                            Send message
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        return
+    }
+    function handleEditComment() { }
+    function handleDeleteComment() { }
 
     return (
         <>
@@ -20,190 +83,180 @@ function HomePage({ data }) {
                         </h1>
                     </div>
                 </div>
-                <nav>
-                    <div className="nav navbar-nav navbar-right">
-                        <p title="Register">Register</p>
-                        <a href="" title="Login">
-                            Login
-                        </a>
-                    </div>
-                    <div className="container-fluid">
-                        <ul className="nav navbar-nav">
-                            <li>
-                                <a href="">Home</a>
-                            </li>
-                            <li>
-                                <a href="">Courses</a>
-                            </li>
-                            <li>
-                                <a href="">Q&amp;A</a>
-                            </li>
-                            <li>
-                                <a href="">Jobs</a>
-                            </li>
-                            <li>
-                                <a href="">Contests</a>
-                            </li>
-                        </ul>
-                    </div>
-                    <form className="navbar-form navbar-right" action="/action_page.php">
+                <nav className="navbar navbar-light bg-light justify-content-between">
+                    <ul className="nav nav-pills">
+                        <li className="nav-item">
+                            <a className="nav-link active" href="">Home</a>
+                        </li>
+                        <li className="nav-item">
+                            <a className="nav-link" href="">Courses</a>
+                        </li>
+                        <li className="nav-item">
+                            <a className="nav-link" href="">Q&amp;A</a>
+                        </li>
+                        <li className="nav-item">
+                            <a className="nav-link" href="">Jobs</a>
+                        </li>
+                        <li className="nav-item">
+                            <a className="nav-link" href="">Contests</a>
+                        </li>
+                    </ul>
+                    <form className="form-inline">
                         <div className="input-group">
                             <input type="text" className="form-control" placeholder="Search" />
                             <div className="input-group-btn">
-                                <button className="btn btn-default" type="submit">
-                                    <i className="glyphicon glyphicon-search"></i>
+                                <button className="btn btn-outline-success my-2 my-sm-0" type="submit">
+                                    Search
                                 </button>
-                                <i className="glyphicon glyphicon-search"></i>
                             </div>
-                            <i className="glyphicon glyphicon-search"></i>
                         </div>
-                        <i className="glyphicon glyphicon-search"></i>
                     </form>
                 </nav>
-                <i className="glyphicon glyphicon-search">
-                    <nav>
-                        <div className="container-fluid">
-                            <ul className="nav navbar-nav">
-                                <li>
-                                    <a href="">Arrays</a>
-                                </li>
-                                <li>
-                                    <a href="">Data Structures</a>
-                                </li>
-                                <li>
-                                    <a href="">Interview Preparation</a>
-                                </li>
-                                <li>
-                                    <a href="">Data Science</a>
-                                </li>
-                                <li>
-                                    <a href="">C</a>
-                                </li>
-                                <li>
-                                    <a href="">Python</a>
-                                </li>
-                            </ul>
-                        </div>
-                    </nav>
-                    <div className="row">
-                        <div id="content" className="col-lg-8">
-                            <div id="post" className="post">
-                                <div className="post-main">
-                                    <div className="post-info">
-                                        <div className="post-title-info">
-                                            <h2>
-                                                <a href="">Adapt HTML code responsively with Bootstrap</a>
-                                            </h2>
-                                            <a href="">Leave a comment</a>
-                                        </div>
-                                        <div className="post-date">February 25, 2003</div>
+
+                <nav className="navbar navbar-light justify-content-between">
+                    <ul className="nav navbar-pills">
+                        <li className="nav-item">
+                            <a className="nav-link" href="">Arrays</a>
+                        </li>
+                        <li className="nav-item">
+                            <a className="nav-link" href="">Data Structures</a>
+                        </li>
+                        <li className="nav-item">
+                            <a className="nav-link" href="">Interview Preparation</a>
+                        </li>
+                        <li className="nav-item">
+                            <a className="nav-link" href="">Data Science</a>
+                        </li>
+                        <li className="nav-item">
+                            <a className="nav-link" href="">C</a>
+                        </li>
+                        <li className="nav-item">
+                            <a className="nav-link" href="">Python</a>
+                        </li>
+                    </ul>
+
+                </nav>
+                <div className="row">
+                    <div id="content" className="col-lg-8">
+                        <div id="post" className="post">
+                            <div className="post-main">
+                                <div className="post-info">
+                                    <div className="post-title-info">
+                                        <h2>
+                                            <a href="">Adapt HTML code responsively with Bootstrap</a>
+                                        </h2>
+                                        <a href="">Leave a comment</a>
                                     </div>
-                                    <div className="post-content">
-                                        <div>
-                                            Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-                                            Dolore, quia ex labore commodi consectetur delectus voluptatem
-                                            repellat quae aspernatur laborum rem beatae aperiam
-                                            repellendus earum animi autem quibusdam. Saepe, itaque!
-                                        </div>
-                                    </div>
+                                    <div className="post-date">February 25, 2003</div>
                                 </div>
-                                <div className="post-main">
-                                    <div className="post-info">
-                                        <div className="post-title-info">
-                                            <h2>
-                                                <a href="">Detect Cycle in a Graph</a>
-                                            </h2>
-                                            <a href="">Leave a comment</a>
-                                        </div>
-                                        <div className="post-date">February 25, 2003</div>
-                                    </div>
-                                    <div className="post-content">
-                                        <div>
-                                            Sed ut perspiciatis unde omnis iste natus error sit voluptatem
-                                            accusantium doloremque laudantium, totam rem aperiam, eaque
-                                            ipsa quae ab illo inventore veritatis et quasi architecto
-                                            beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem
-                                            quia voluptas sit aspernatur aut odit aut fugit
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="post-main">
-                                    <div className="post-info">
-                                        <div className="post-title-info">
-                                            <h2>
-                                                <a href="">Add data to your website with Ajax</a>
-                                            </h2>
-                                            <a href="">Leave a comment</a>
-                                        </div>
-                                        <div className="post-date">April 28, 2003</div>
-                                    </div>
-                                    <div className="post-content">
-                                        <div>
-                                            At vero eos et accusamus et iusto odio dignissimos ducimus qui
-                                            blanditiis praesentium voluptatum deleniti atque corrupti quos
-                                            dolores et quas molestias excepturi sint occaecati cupiditate
-                                            non provident, similique sunt in culpa qui officia deserunt
-                                            mollitia animi, id est laborum et dolorum fuga
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="post-main">
-                                    <div className="post-info">
-                                        <div className="post-title-info">
-                                            <h2>
-                                                <a href="">Et harum quidem rerum facilis</a>
-                                            </h2>
-                                            <a href="">Leave a comment</a>
-                                        </div>
-                                        <div className="post-date">April 28, 2003</div>
-                                    </div>
-                                    <div className="post-content">
-                                        <div>
-                                            Nam libero tempore, cum soluta nobis est eligendi optio cumque
-                                            nihil impedit quo minus id quod maxime placeat facere
-                                            possimus, omnis voluptas assumenda est.
-                                        </div>
+                                <div className="post-content">
+                                    <div>
+                                        Lorem, ipsum dolor sit amet consectetur adipisicing elit.
+                                        Dolore, quia ex labore commodi consectetur delectus voluptatem
+                                        repellat quae aspernatur laborum rem beatae aperiam
+                                        repellendus earum animi autem quibusdam. Saepe, itaque!
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div className="col-lg-4">
-                            <h2>Our Forum (Latest posts)</h2>
-                            <ul className="list-unstyled">
-                                <li className="media">
-                                    <div className="media-body">
-                                        <h5 className="mt-0 mb-2 font-weight-bold">User: Anna Smith</h5>
-                                        <div>
-                                            Comment: Cras sit amet nibh libero, in gravida nulla. Nulla
-                                            vel metus scelerisque ante sollicitudin. Cras purus odio,
-                                            vestibulum in vulputate at, tempus viverra turpis. Fusce
-                                            condimentum nunc ac nisi vulputate fringilla. Donec lacinia
-                                            congue felis in faucibus.
-                                        </div>
-                                        <div>Date: </div>
+                            <div className="post-main">
+                                <div className="post-info">
+                                    <div className="post-title-info">
+                                        <h2>
+                                            <a href="">Detect Cycle in a Graph</a>
+                                        </h2>
+                                        <a href="">Leave a comment</a>
                                     </div>
-                                </li>
-                            </ul>
-                            <div className="grid gap-0 row-gap-3">
-                                <div className="p-1 g-col-6">
-                                    <button type="button" className="btn btn-success btn-rounded">
-                                        Crear comentario
-                                    </button>
+                                    <div className="post-date">February 25, 2003</div>
                                 </div>
-                                <div className="p-1 g-col-6">
-                                    <button type="button" className="btn btn-warning btn-rounded">
-                                        Editar comentario
-                                    </button>
+                                <div className="post-content">
+                                    <div>
+                                        Sed ut perspiciatis unde omnis iste natus error sit voluptatem
+                                        accusantium doloremque laudantium, totam rem aperiam, eaque
+                                        ipsa quae ab illo inventore veritatis et quasi architecto
+                                        beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem
+                                        quia voluptas sit aspernatur aut odit aut fugit
+                                    </div>
                                 </div>
-                                <div className="p-1 g-col-6">
-                                    <button type="button" className="btn btn-danger btn-rounded">
-                                        Eliminar comentario
-                                    </button>
+                            </div>
+                            <div className="post-main">
+                                <div className="post-info">
+                                    <div className="post-title-info">
+                                        <h2>
+                                            <a href="">Add data to your website with Ajax</a>
+                                        </h2>
+                                        <a href="">Leave a comment</a>
+                                    </div>
+                                    <div className="post-date">April 28, 2003</div>
+                                </div>
+                                <div className="post-content">
+                                    <div>
+                                        At vero eos et accusamus et iusto odio dignissimos ducimus qui
+                                        blanditiis praesentium voluptatum deleniti atque corrupti quos
+                                        dolores et quas molestias excepturi sint occaecati cupiditate
+                                        non provident, similique sunt in culpa qui officia deserunt
+                                        mollitia animi, id est laborum et dolorum fuga
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="post-main">
+                                <div className="post-info">
+                                    <div className="post-title-info">
+                                        <h2>
+                                            <a href="">Et harum quidem rerum facilis</a>
+                                        </h2>
+                                        <a href="">Leave a comment</a>
+                                    </div>
+                                    <div className="post-date">April 28, 2003</div>
+                                </div>
+                                <div className="post-content">
+                                    <div>
+                                        Nam libero tempore, cum soluta nobis est eligendi optio cumque
+                                        nihil impedit quo minus id quod maxime placeat facere
+                                        possimus, omnis voluptas assumenda est.
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </i>
+                    <div className="col-lg-4">
+                        <h2>Our Forum (Latest posts)</h2>
+                        <ul className="list-unstyled">
+                            {data.map((post) => (
+                                <li key={post.id} className="media-body">
+                                    <div className="media-body">
+                                        <h5 className="mt-0 mb-2 font-weight-bold">
+                                            Username: {post.user}
+                                        </h5>
+                                        <div>
+                                            Comment: {post.description}
+                                        </div>
+                                        <div>
+                                            Date: {post.currentDate}
+                                        </div>
+                                    </div>
+                                </li>
+                            ))}
+                        </ul>
+                        <div className="grid gap-0 row-gap-3">
+                            <div className="p-1 g-col-6">
+                                <button type="button" className="btn btn-success btn-rounded" data-toggle="modal" data-target="#createModal" onClick={handleCreateComment}>
+                                    Crear comentario
+                                </button>
+                            </div>
+                            <div className="p-1 g-col-6">
+                                <button type="button" className="btn btn-warning btn-rounded" onClick={handleEditComment}>
+                                    Editar comentario
+                                </button>
+                            </div>
+                            <div className="p-1 g-col-6">
+                                <button type="button" className="btn btn-danger btn-rounded" onClick={handleDeleteComment}>
+                                    Eliminar comentario
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
             </div>
             <footer className="container">
                 <div id="footer" className="col-lg-12">
