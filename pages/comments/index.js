@@ -7,6 +7,7 @@ function HomePage({ data }) {
         return <div>Loading...</div>
     }
 
+    // Modals
     const [showC, setShowC] = useState(false);
     const handleCreateClose = () => setShowC(false);
     const handleCreate = () => setShowC(true);
@@ -18,6 +19,22 @@ function HomePage({ data }) {
     const [showD, setShowD] = useState(false);
     const handleDeleteClose = () => setShowD(false);
     const handleDelete = () => setShowD(true);
+
+    const [comment, setComment] = useState('')
+
+    const submitContent = async () => {
+        setShowC(false);
+        const response = await fetch('/comments', {
+            method: 'POST',
+            body: JSON.stringify({ comment }),
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+        const data = await response.json()
+        console.log(data)
+    }
+
 
     return (
         <>
@@ -262,7 +279,7 @@ function HomePage({ data }) {
                                     <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
                                         <Form.Label>Username</Form.Label>
                                         <Form.Control
-                                            autoFocus
+                                            autoFocus onChange={(e) => setComment(e.target.value)}
                                         />
                                     </Form.Group>
                                     <Form.Group
@@ -278,7 +295,7 @@ function HomePage({ data }) {
                                 <Button variant="danger" onClick={handleCreateClose}>
                                     Close
                                 </Button>
-                                <Button variant="success" onClick={handleCreateClose}>
+                                <Button variant="success" onClick={submitContent}>
                                     Send
                                 </Button>
                             </Modal.Footer>
