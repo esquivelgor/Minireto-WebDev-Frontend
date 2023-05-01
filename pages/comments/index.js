@@ -70,6 +70,40 @@ function HomePage({ data }) {
     function handleEditComment() { }
     function handleDeleteComment() { }
 
+    const handleSubmit = async (event) => {
+        setShowC(false);
+        console.log("Golaa")
+        console.log(event)
+        if (event && event.target) {
+            const data = {
+                first: event.target.first.value,
+                last: event.target.Comment.value,
+            }
+            console.log(data)
+            const JSONdata = JSON.stringify(data)
+            const endpoint = 'http://localhost:8080/comments/'
+
+            const options = {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSONdata,
+            }
+            try {
+                const response = await fetch(endpoint, options)
+                const result = await response.json()
+                alert(`This is the username: ${result.data}`)
+            } catch (error) {
+                console.error('Error: ', error);
+                alert('Error in request')
+            }
+        } else {
+            console.error('Error: event or event.target is undefined');
+            alert('Error in request')
+        }
+    }
+
     return (
         <>
             <title>GeeksforGeeks</title>
@@ -229,6 +263,7 @@ function HomePage({ data }) {
                                         </h5>
                                         <div>
                                             Comment: {post.description}
+<<<<<<< Updated upstream
                                         </div>
                                         <div>
                                             Date: {post.currentDate}
@@ -267,6 +302,98 @@ function HomePage({ data }) {
                     </div>
                 </div>
             </footer>
+=======
+                                        </Card.Text>
+                                    </Card>
+                                ))}
+                            </Card.Body>
+                            <ButtonGroup className="p-2">
+                                <Button variant="success" onClick={handleCreate}>Crear comentario</Button>
+                                <Button variant="warning" onClick={handleEdit}>Editar comentario</Button>
+                                <Button variant="danger" onClick={handleDelete}>Eliminar comentario</Button>
+                            </ButtonGroup>
+                        </Card>
+                        <Modal show={showC} onHide={handleCreateClose}>
+                            <Modal.Header closeButton>
+                                <Modal.Title>New comment</Modal.Title>
+                            </Modal.Header>
+                            <Modal.Body>
+                                <form action="/comments" method="post">
+                                    <label htmlFor="first">First Name</label>
+                                    <input type="text" id="user" name="user" required />
+
+                                    <label htmlFor="last">Last Name</label>
+                                    <input type="text" id="comment" name="comment" required />
+
+                                    <button type="submit">Submit</button>
+                                </form>
+
+
+                            </Modal.Body>
+                        </Modal>
+                        <Modal show={showE} onHide={handleEditClose}>
+                            <Modal.Header closeButton>
+                                <Modal.Title>Edit comment</Modal.Title>
+                            </Modal.Header>
+                            <Modal.Body>
+                                <Form>
+                                    <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+                                        <Form.Label>Username</Form.Label>
+                                        <Form.Control
+                                            placeholder="velgor"
+                                            autoFocus
+                                        />
+                                    </Form.Group>
+                                    <Form.Group
+                                        className="mb-3"
+                                        controlId="exampleForm.ControlTextarea1"
+                                    >
+                                        <Form.Label>Comment</Form.Label>
+                                        <Form.Control as="textarea" rows={3} />
+                                    </Form.Group>
+                                </Form>
+                            </Modal.Body>
+                            <Modal.Footer>
+                                <Button variant="danger" onClick={handleEditClose}>
+                                    Close
+                                </Button>
+                                <Button variant="success" onClick={handleEditClose}>
+                                    Save Changes
+                                </Button>
+                            </Modal.Footer>
+                        </Modal>
+                        <Modal show={showD} onHide={handleDeleteClose}>
+                            <Modal.Header closeButton>
+                                <Modal.Title>Delete comment</Modal.Title>
+                            </Modal.Header>
+                            <Modal.Body>
+                                <Form>
+                                    <Form.Group className="mb-3" id="exampleForm.ControlInput1">
+                                        <Form.Label>Number of your comment</Form.Label>
+                                        <Form.Control autoFocus />
+                                    </Form.Group>
+                                </Form>
+                            </Modal.Body>
+                            <Modal.Footer>
+                                <Button variant="secondary" onClick={handleDeleteClose}>
+                                    Close
+                                </Button>
+                                <Button variant="danger" onClick={handleDeleteClose}>
+                                    Delete
+                                </Button>
+                            </Modal.Footer>
+                        </Modal>
+                    </Col>
+                </Row>
+            </Container>
+            <Container>
+                <Nav className="me-auto">
+                    <Nav.Link>Rights reserved for:</Nav.Link>
+                    <Nav.Link href="https://github.com/esquivelgor">Guillermo Esquivel Ortiz | A01625621</Nav.Link>
+                    <Nav.Link href="#features">Moises Hiram | </Nav.Link>
+                </Nav >
+            </Container>
+>>>>>>> Stashed changes
         </>
     )
 }
@@ -274,7 +401,7 @@ function HomePage({ data }) {
 // This function gets called at build time
 export async function getServerSideProps() {
     // Fetch data from external API
-    const res = await fetch(`http://localhost:8080/comments`)
+    const res = await fetch(`https://tc2005b-sem2023-production.up.railway.app/comments`)
     const data = await res.json()
 
     // Pass data to the page via props
