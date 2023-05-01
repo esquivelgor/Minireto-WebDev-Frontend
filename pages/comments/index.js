@@ -1,140 +1,47 @@
+import React, { useState } from 'react'
+import { Container, Row, Col, Button, ButtonGroup, Form, Modal, Navbar, Nav, Alert, Card } from 'react-bootstrap'
 import 'bootstrap/dist/css/bootstrap.css'
-import 'bootstrap/dist/css/style.css'
 
 function HomePage({ data }) {
     if (!data) {
         return <div>Loading...</div>
     }
 
-    function handleCreateComment() {
-        <div
-            className="modal fade"
-            id="createModal"
-            tabIndex={-1}
-            role="dialog"
-            aria-labelledby="exampleModalLabel"
-            aria-hidden="true"
-        >
-            <div className="modal-dialog" role="document">
-                <div className="modal-content">
-                    <div className="modal-header">
-                        <h5 className="modal-title" id="exampleModalLabel">
-                            New message
-                        </h5>
-                        <button
-                            type="button"
-                            className="close"
-                            data-dismiss="modal"
-                            aria-label="Close"
-                        >
-                            <span aria-hidden="true">×</span>
-                        </button>
-                    </div>
-                    <div className="modal-body">
-                        <form>
-                            <div className="form-group">
-                                <label htmlFor="recipient-name" className="col-form-label">
-                                    Recipient:
-                                </label>
-                                <input type="text" className="form-control" id="recipient-name" />
-                            </div>
-                            <div className="form-group">
-                                <label htmlFor="message-text" className="col-form-label">
-                                    Message:
-                                </label>
-                                <textarea
-                                    className="form-control"
-                                    id="message-text"
-                                    defaultValue={""}
-                                />
-                            </div>
-                        </form>
-                    </div>
-                    <div className="modal-footer">
-                        <button
-                            type="button"
-                            className="btn btn-secondary"
-                            data-dismiss="modal"
-                        >
-                            Close
-                        </button>
-                        <button type="button" className="btn btn-primary">
-                            Send message
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </div>
-        return
-    }
-    function handleEditComment() { }
-    function handleDeleteComment() { }
+    const [showC, setShowC] = useState(false);
+    const handleCreateClose = () => setShowC(false);
+    const handleCreate = () => setShowC(true);
 
-    const handleSubmit = async (event) => {
-        setShowC(false);
-        console.log("Golaa")
-        console.log(event)
-        if (event && event.target) {
-            const data = {
-                first: event.target.first.value,
-                last: event.target.Comment.value,
-            }
-            console.log(data)
-            const JSONdata = JSON.stringify(data)
-            const endpoint = 'http://localhost:8080/comments/'
+    const [showE, setShowE] = useState(false);
+    const handleEditClose = () => setShowE(false);
+    const handleEdit = () => setShowE(true);
 
-            const options = {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSONdata,
-            }
-            try {
-                const response = await fetch(endpoint, options)
-                const result = await response.json()
-                alert(`This is the username: ${result.data}`)
-            } catch (error) {
-                console.error('Error: ', error);
-                alert('Error in request')
-            }
-        } else {
-            console.error('Error: event or event.target is undefined');
-            alert('Error in request')
-        }
-    }
+    const [showD, setShowD] = useState(false);
+    const handleDeleteClose = () => setShowD(false);
+    const handleDelete = () => setShowD(true);
 
     return (
         <>
             <title>GeeksforGeeks</title>
             <meta charSet="utf-8" />
             <meta name="viewport" content="width=device-width, initial-scale=1" />
-            <div className="container">
-                <div className="row">
-                    <div className="col-sm-12">
+            <Container>
+                <Row>
+                    <Col className='p-3'>
                         <h1 className="blog-title">
-                            <p title="GeeksforGeeks">GeeksforGeeks</p>
+                            <p title="Geeks4Geeks">Geeks4Geeks</p>
                         </h1>
-                    </div>
-                </div>
-                <nav className="navbar navbar-light bg-light justify-content-between">
-                    <ul className="nav nav-pills">
-                        <li className="nav-item">
-                            <a className="nav-link active" href="">Home</a>
-                        </li>
-                        <li className="nav-item">
-                            <a className="nav-link" href="">Courses</a>
-                        </li>
-                        <li className="nav-item">
-                            <a className="nav-link" href="">Q&amp;A</a>
-                        </li>
-                        <li className="nav-item">
-                            <a className="nav-link" href="">Jobs</a>
-                        </li>
-                        <li className="nav-item">
-                            <a className="nav-link" href="">Contests</a>
-                        </li>
-                    </ul>
+                    </Col>
+                </Row>
+                <Navbar>
+                    <Container>
+                        <Nav className="me-auto">
+                            <Nav.Link href="#home" className='active'>Home</Nav.Link>
+                            <Nav.Link href="#features">Courses</Nav.Link>
+                            <Nav.Link href="#pricing">Q&amp;A</Nav.Link>
+                            <Nav.Link href="#pricing">Jobs</Nav.Link>
+                            <Nav.Link href="#pricing">Contests</Nav.Link>
+                        </Nav >
+                    </Container>
                     <form className="form-inline">
                         <div className="input-group">
                             <input type="text" className="form-control" placeholder="Search" />
@@ -145,41 +52,29 @@ function HomePage({ data }) {
                             </div>
                         </div>
                     </form>
-                </nav>
-
-                <nav className="navbar navbar-light justify-content-between">
-                    <ul className="nav navbar-pills">
-                        <li className="nav-item">
-                            <a className="nav-link" href="">Arrays</a>
-                        </li>
-                        <li className="nav-item">
-                            <a className="nav-link" href="">Data Structures</a>
-                        </li>
-                        <li className="nav-item">
-                            <a className="nav-link" href="">Interview Preparation</a>
-                        </li>
-                        <li className="nav-item">
-                            <a className="nav-link" href="">Data Science</a>
-                        </li>
-                        <li className="nav-item">
-                            <a className="nav-link" href="">C</a>
-                        </li>
-                        <li className="nav-item">
-                            <a className="nav-link" href="">Python</a>
-                        </li>
-                    </ul>
-
-                </nav>
-                <div className="row">
-                    <div id="content" className="col-lg-8">
+                </Navbar>
+                <Navbar>
+                    <Container>
+                        <Nav className="me-auto">
+                            <Nav.Link href="#home">Arrays</Nav.Link>
+                            <Nav.Link href="#features">Data Structures</Nav.Link>
+                            <Nav.Link href="#pricing">Interview Preparation</Nav.Link>
+                            <Nav.Link href="#pricing">Data Science</Nav.Link>
+                            <Nav.Link href="#pricing">C</Nav.Link>
+                            <Nav.Link href="#pricing">Python</Nav.Link>
+                        </Nav >
+                    </Container>
+                </Navbar>
+                <Row>
+                    <Col sm={8}>
                         <div id="post" className="post">
                             <div className="post-main">
                                 <div className="post-info">
                                     <div className="post-title-info">
                                         <h2>
-                                            <a href="">Adapt HTML code responsively with Bootstrap</a>
+                                            <Alert.Link style={{ color: 'green' }}>Adapt HTML code responsively with Bootstrap </Alert.Link>
                                         </h2>
-                                        <a href="">Leave a comment</a>
+                                        <Alert.Link style={{ color: 'green' }}>Leave a comment</Alert.Link>
                                     </div>
                                     <div className="post-date">February 25, 2003</div>
                                 </div>
@@ -196,9 +91,9 @@ function HomePage({ data }) {
                                 <div className="post-info">
                                     <div className="post-title-info">
                                         <h2>
-                                            <a href="">Detect Cycle in a Graph</a>
+                                            <Alert.Link style={{ color: 'green' }}>Detect Cycle in a Graph</Alert.Link>
                                         </h2>
-                                        <a href="">Leave a comment</a>
+                                        <Alert.Link style={{ color: 'green' }}>Leave a comment</Alert.Link>
                                     </div>
                                     <div className="post-date">February 25, 2003</div>
                                 </div>
@@ -216,9 +111,9 @@ function HomePage({ data }) {
                                 <div className="post-info">
                                     <div className="post-title-info">
                                         <h2>
-                                            <a href="">Add data to your website with Ajax</a>
+                                            <Alert.Link style={{ color: 'green' }}>Add data to your website with Ajax</Alert.Link>
                                         </h2>
-                                        <a href="">Leave a comment</a>
+                                        <Alert.Link style={{ color: 'green' }}>Leave a comment</Alert.Link>
                                     </div>
                                     <div className="post-date">April 28, 2003</div>
                                 </div>
@@ -236,9 +131,88 @@ function HomePage({ data }) {
                                 <div className="post-info">
                                     <div className="post-title-info">
                                         <h2>
-                                            <a href="">Et harum quidem rerum facilis</a>
+                                            <Alert.Link style={{ color: 'green' }}>Et harum quidem rerum facilis</Alert.Link>
+
                                         </h2>
-                                        <a href="">Leave a comment</a>
+                                        <Alert.Link style={{ color: 'green' }}>Leave a comment</Alert.Link>
+                                    </div>
+                                    <div className="post-date">April 28, 2003</div>
+                                </div>
+                                <div className="post-content">
+                                    <div>
+                                        Nam libero tempore, cum soluta nobis est eligendi optio cumque
+                                        nihil impedit quo minus id quod maxime placeat facere
+                                        possimus, omnis voluptas assumenda est.
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="post-main">
+                                <div className="post-info">
+                                    <div className="post-title-info">
+                                        <h2>
+                                            <Alert.Link style={{ color: 'green' }}>Adapt HTML code responsively with Bootstrap </Alert.Link>
+                                        </h2>
+                                        <Alert.Link style={{ color: 'green' }}>Leave a comment</Alert.Link>
+                                    </div>
+                                    <div className="post-date">February 25, 2003</div>
+                                </div>
+                                <div className="post-content">
+                                    <div>
+                                        Lorem, ipsum dolor sit amet consectetur adipisicing elit.
+                                        Dolore, quia ex labore commodi consectetur delectus voluptatem
+                                        repellat quae aspernatur laborum rem beatae aperiam
+                                        repellendus earum animi autem quibusdam. Saepe, itaque!
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="post-main">
+                                <div className="post-info">
+                                    <div className="post-title-info">
+                                        <h2>
+                                            <Alert.Link style={{ color: 'green' }}>Detect Cycle in a Graph</Alert.Link>
+                                        </h2>
+                                        <Alert.Link style={{ color: 'green' }}>Leave a comment</Alert.Link>
+                                    </div>
+                                    <div className="post-date">February 25, 2003</div>
+                                </div>
+                                <div className="post-content">
+                                    <div>
+                                        Sed ut perspiciatis unde omnis iste natus error sit voluptatem
+                                        accusantium doloremque laudantium, totam rem aperiam, eaque
+                                        ipsa quae ab illo inventore veritatis et quasi architecto
+                                        beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem
+                                        quia voluptas sit aspernatur aut odit aut fugit
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="post-main">
+                                <div className="post-info">
+                                    <div className="post-title-info">
+                                        <h2>
+                                            <Alert.Link style={{ color: 'green' }}>Add data to your website with Ajax</Alert.Link>
+                                        </h2>
+                                        <Alert.Link style={{ color: 'green' }}>Leave a comment</Alert.Link>
+                                    </div>
+                                    <div className="post-date">April 28, 2003</div>
+                                </div>
+                                <div className="post-content">
+                                    <div>
+                                        At vero eos et accusamus et iusto odio dignissimos ducimus qui
+                                        blanditiis praesentium voluptatum deleniti atque corrupti quos
+                                        dolores et quas molestias excepturi sint occaecati cupiditate
+                                        non provident, similique sunt in culpa qui officia deserunt
+                                        mollitia animi, id est laborum et dolorum fuga
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="post-main">
+                                <div className="post-info">
+                                    <div className="post-title-info">
+                                        <h2>
+                                            <Alert.Link style={{ color: 'green' }}>Et harum quidem rerum facilis</Alert.Link>
+
+                                        </h2>
+                                        <Alert.Link style={{ color: 'green' }}>Leave a comment</Alert.Link>
                                     </div>
                                     <div className="post-date">April 28, 2003</div>
                                 </div>
@@ -251,58 +225,24 @@ function HomePage({ data }) {
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div className="col-lg-4">
+                    </Col>
+                    <Col sm={4}>
                         <h2>Our Forum (Latest posts)</h2>
-                        <ul className="list-unstyled">
-                            {data.map((post) => (
-                                <li key={post.id} className="media-body">
-                                    <div className="media-body">
-                                        <h5 className="mt-0 mb-2 font-weight-bold">
+                        <Card style={{ width: '23rem' }} className="p-2">
+                            <Card.Body>
+                                {data.map((post) => (
+                                    <Card style={{ width: '20rem' }} key={post.id} className="p-3">
+                                        <Card.Title>
                                             Username: {post.user}
-                                        </h5>
-                                        <div>
-                                            Comment: {post.description}
-<<<<<<< Updated upstream
-                                        </div>
-                                        <div>
+                                        </Card.Title>
+                                        <Card.Subtitle className="mb-2 text-muted">
                                             Date: {post.currentDate}
-                                        </div>
-                                    </div>
-                                </li>
-                            ))}
-                        </ul>
-                        <div className="grid gap-0 row-gap-3">
-                            <div className="p-1 g-col-6">
-                                <button type="button" className="btn btn-success btn-rounded" data-toggle="modal" data-target="#createModal" onClick={handleCreateComment}>
-                                    Crear comentario
-                                </button>
-                            </div>
-                            <div className="p-1 g-col-6">
-                                <button type="button" className="btn btn-warning btn-rounded" onClick={handleEditComment}>
-                                    Editar comentario
-                                </button>
-                            </div>
-                            <div className="p-1 g-col-6">
-                                <button type="button" className="btn btn-danger btn-rounded" onClick={handleDeleteComment}>
-                                    Eliminar comentario
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-            <footer className="container">
-                <div id="footer" className="col-lg-12">
-                    <div>
-                        <div>
-                            Rights reserved for <a href="">Guillermo Esquivel </a>
-                        </div>
-                    </div>
-                </div>
-            </footer>
-=======
+                                        </Card.Subtitle>
+                                        <Card.Subtitle className='text-muted'>
+                                            Comment number: {post.id}
+                                        </Card.Subtitle>
+                                        <Card.Text>
+                                            Comment: {post.description}
                                         </Card.Text>
                                     </Card>
                                 ))}
@@ -318,18 +258,30 @@ function HomePage({ data }) {
                                 <Modal.Title>New comment</Modal.Title>
                             </Modal.Header>
                             <Modal.Body>
-                                <form action="/comments" method="post">
-                                    <label htmlFor="first">First Name</label>
-                                    <input type="text" id="user" name="user" required />
-
-                                    <label htmlFor="last">Last Name</label>
-                                    <input type="text" id="comment" name="comment" required />
-
-                                    <button type="submit">Submit</button>
-                                </form>
-
-
+                                <Form>
+                                    <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+                                        <Form.Label>Username</Form.Label>
+                                        <Form.Control
+                                            autoFocus
+                                        />
+                                    </Form.Group>
+                                    <Form.Group
+                                        className="mb-3"
+                                        controlId="exampleForm.ControlTextarea1"
+                                    >
+                                        <Form.Label>Comment</Form.Label>
+                                        <Form.Control as="textarea" rows={3} />
+                                    </Form.Group>
+                                </Form>
                             </Modal.Body>
+                            <Modal.Footer>
+                                <Button variant="danger" onClick={handleCreateClose}>
+                                    Close
+                                </Button>
+                                <Button variant="success" onClick={handleCreateClose}>
+                                    Send
+                                </Button>
+                            </Modal.Footer>
                         </Modal>
                         <Modal show={showE} onHide={handleEditClose}>
                             <Modal.Header closeButton>
@@ -368,7 +320,7 @@ function HomePage({ data }) {
                             </Modal.Header>
                             <Modal.Body>
                                 <Form>
-                                    <Form.Group className="mb-3" id="exampleForm.ControlInput1">
+                                    <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
                                         <Form.Label>Number of your comment</Form.Label>
                                         <Form.Control autoFocus />
                                     </Form.Group>
@@ -393,7 +345,6 @@ function HomePage({ data }) {
                     <Nav.Link href="#features">Moises Hiram | </Nav.Link>
                 </Nav >
             </Container>
->>>>>>> Stashed changes
         </>
     )
 }
