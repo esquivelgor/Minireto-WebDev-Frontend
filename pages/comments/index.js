@@ -98,20 +98,59 @@ function HomePage({ data }) {
             <Form onSubmit={handleSubmit}>
                 <Form.Group controlId="formName" className="mb-3">
                     <Form.Label>Username</Form.Label>
-                    <Form.Control type="text" name="user" value={formData.user} onChange={handleInputChange} required/>
+                    <Form.Control type="text" name="user" value={formData.user} onChange={handleInputChange} required />
                 </Form.Group>
 
                 <Form.Group controlId="formMessage" className="mb-3">
                     <Form.Label>Comment</Form.Label>
-                    <Form.Control as="textarea" rows={3} name="description" value={formData.description} onChange={handleInputChange} required/>
+                    <Form.Control as="textarea" rows={3} name="description" value={formData.description} onChange={handleInputChange} required />
                 </Form.Group>
 
                 <Form.Group controlId="formId" className="mb-3">
                     <Form.Label>Comment number</Form.Label>
-                    <Form.Control type="text" rows={3} name="id" value={formData.id} onChange={handleInputChange}required/>
+                    <Form.Control type="text" rows={3} name="id" value={formData.id} onChange={handleInputChange} required />
                 </Form.Group>
 
                 <Button type="submit" variant="success">Edit</Button>
+            </Form>
+        );
+    };
+
+    const SendFormDelete = () => {
+        const [formData, setFormData] = useState({
+            id: '',
+        });
+
+        const handleInputChange = (event) => {
+            const { name, value } = event.target;
+            setFormData({ ...formData, [name]: value });
+        };
+
+        const handleSubmit = async (event) => {
+            const response = await fetch('http://localhost:8080/comments', {
+                method: 'DELETE',
+                body: JSON.stringify(formData),
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            });
+
+            if (response.ok) {
+                setShowD(false);
+                console.log("DELETE done")
+            } else {
+                console.log("DELETE failed")
+            }
+        };
+
+        return (
+            <Form onSubmit={handleSubmit}>
+                <Form.Group controlId="formId" className="mb-3">
+                    <Form.Label>Comment number</Form.Label>
+                    <Form.Control type="text" rows={3} name="id" value={formData.id} onChange={handleInputChange} required />
+                </Form.Group>
+
+                <Button type="submit" variant="danger">Delete</Button>
             </Form>
         );
     };
@@ -371,21 +410,8 @@ function HomePage({ data }) {
                                 <Modal.Title>Delete comment</Modal.Title>
                             </Modal.Header>
                             <Modal.Body>
-                                <Form>
-                                    <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-                                        <Form.Label>Number of your comment</Form.Label>
-                                        <Form.Control autoFocus />
-                                    </Form.Group>
-                                </Form>
+                                <SendFormDelete />
                             </Modal.Body>
-                            <Modal.Footer>
-                                <Button variant="secondary" onClick={handleDeleteClose}>
-                                    Close
-                                </Button>
-                                <Button variant="danger" onClick={handleDeleteClose}>
-                                    Delete
-                                </Button>
-                            </Modal.Footer>
                         </Modal>
                     </Col>
                 </Row>
