@@ -32,7 +32,6 @@ function HomePage({ data }) {
         };
 
         const handleSubmit = async (event) => {
-            event.preventDefault();
             const response = await fetch('http://localhost:8080/comments', {
                 method: 'POST',
                 body: JSON.stringify(formData),
@@ -43,7 +42,6 @@ function HomePage({ data }) {
 
             if (response.ok) {
                 setShowC(false);
-                console.log(JSON.stringify(formData))
                 console.log("POST done")
             } else {
                 console.log("POST failed")
@@ -63,6 +61,57 @@ function HomePage({ data }) {
                 </Form.Group>
 
                 <Button type="submit" variant="success">Send</Button>
+            </Form>
+        );
+    };
+
+    const SendFormEdit = () => {
+        const [formData, setFormData] = useState({
+            user: '',
+            description: '',
+            id: '',
+        });
+
+        const handleInputChange = (event) => {
+            const { name, value } = event.target;
+            setFormData({ ...formData, [name]: value });
+        };
+
+        const handleSubmit = async (event) => {
+            const response = await fetch('http://localhost:8080/comments', {
+                method: 'PATCH',
+                body: JSON.stringify(formData),
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            });
+
+            if (response.ok) {
+                setShowE(false);
+                console.log("PATCH done")
+            } else {
+                console.log("PATCH failed")
+            }
+        };
+
+        return (
+            <Form onSubmit={handleSubmit}>
+                <Form.Group controlId="formName" className="mb-3">
+                    <Form.Label>Username</Form.Label>
+                    <Form.Control type="text" name="user" value={formData.user} onChange={handleInputChange} required/>
+                </Form.Group>
+
+                <Form.Group controlId="formMessage" className="mb-3">
+                    <Form.Label>Comment</Form.Label>
+                    <Form.Control as="textarea" rows={3} name="description" value={formData.description} onChange={handleInputChange} required/>
+                </Form.Group>
+
+                <Form.Group controlId="formId" className="mb-3">
+                    <Form.Label>Comment number</Form.Label>
+                    <Form.Control type="text" rows={3} name="id" value={formData.id} onChange={handleInputChange}required/>
+                </Form.Group>
+
+                <Button type="submit" variant="success">Edit</Button>
             </Form>
         );
     };
@@ -314,31 +363,8 @@ function HomePage({ data }) {
                                 <Modal.Title>Edit comment</Modal.Title>
                             </Modal.Header>
                             <Modal.Body>
-                                <Form>
-                                    <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-                                        <Form.Label>Username</Form.Label>
-                                        <Form.Control
-                                            placeholder="velgor"
-                                            autoFocus
-                                        />
-                                    </Form.Group>
-                                    <Form.Group
-                                        className="mb-3"
-                                        controlId="exampleForm.ControlTextarea1"
-                                    >
-                                        <Form.Label>Comment</Form.Label>
-                                        <Form.Control as="textarea" rows={3} />
-                                    </Form.Group>
-                                </Form>
+                                <SendFormEdit />
                             </Modal.Body>
-                            <Modal.Footer>
-                                <Button variant="danger" onClick={handleEditClose}>
-                                    Close
-                                </Button>
-                                <Button variant="success" onClick={handleEditClose}>
-                                    Save Changes
-                                </Button>
-                            </Modal.Footer>
                         </Modal>
                         <Modal show={showD} onHide={handleDeleteClose}>
                             <Modal.Header closeButton>
