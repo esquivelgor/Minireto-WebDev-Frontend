@@ -81,7 +81,7 @@ function HomePage({ data }) {
         };
 
         const handleSubmit = async (event) => {
-            const response = await fetch('http://localhost:8080/comments', {
+            const response = await fetch('https://tc2005b-sem2023-production.up.railway.app/comments', {
                 method: 'PATCH',
                 body: JSON.stringify(formData),
                 headers: {
@@ -130,7 +130,7 @@ function HomePage({ data }) {
         };
 
         const handleSubmit = async (event) => {
-            const response = await fetch('http://localhost:8080/comments', {
+            const response = await fetch('https://tc2005b-sem2023-production.up.railway.app/comments', {
                 method: 'DELETE',
                 body: JSON.stringify(formData),
                 headers: {
@@ -433,7 +433,7 @@ function HomePage({ data }) {
 // This function gets called at build time
 export async function getServerSideProps() {
     // Fetch data from external API
-    const res = await fetch(`http://localhost:8080/comments`)
+    const res = await fetch(`https://tc2005b-sem2023-production.up.railway.app/comments`)
     const data = await res.json()
 
     // Pass data to the page via props
