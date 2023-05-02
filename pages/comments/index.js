@@ -20,21 +20,52 @@ function HomePage({ data }) {
     const handleDeleteClose = () => setShowD(false);
     const handleDelete = () => setShowD(true);
 
-    const [comment, setComment] = useState('')
+    const SendForm = () => {
+        const [formData, setFormData] = useState({
+            user: '',
+            description: '',
+        });
 
-    const submitContent = async () => {
-        setShowC(false);
-        const response = await fetch('/comments', {
-            method: 'POST',
-            body: JSON.stringify({ comment }),
-            headers: {
-                'Content-Type': 'application/json'
+        const handleInputChange = (event) => {
+            const { name, value } = event.target;
+            setFormData({ ...formData, [name]: value });
+        };
+
+        const handleSubmit = async (event) => {
+            event.preventDefault();
+            const response = await fetch('http://localhost:8080/comments', {
+                method: 'POST',
+                body: JSON.stringify(formData),
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            });
+
+            if (response.ok) {
+                setShowC(false);
+                console.log(JSON.stringify(formData))
+                console.log("POST done")
+            } else {
+                console.log("POST failed")
             }
-        })
-        const data = await response.json()
-        console.log(data)
-    }
+        };
 
+        return (
+            <Form onSubmit={handleSubmit}>
+                <Form.Group controlId="formName" className="mb-3">
+                    <Form.Label>Username</Form.Label>
+                    <Form.Control type="text" name="user" value={formData.user} onChange={handleInputChange} />
+                </Form.Group>
+
+                <Form.Group controlId="formMessage" className="mb-3">
+                    <Form.Label>Comment</Form.Label>
+                    <Form.Control as="textarea" rows={3} name="description" value={formData.description} onChange={handleInputChange} />
+                </Form.Group>
+
+                <Button type="submit" variant="success">Send</Button>
+            </Form>
+        );
+    };
 
     return (
         <>
@@ -275,30 +306,8 @@ function HomePage({ data }) {
                                 <Modal.Title>New comment</Modal.Title>
                             </Modal.Header>
                             <Modal.Body>
-                                <Form>
-                                    <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-                                        <Form.Label>Username</Form.Label>
-                                        <Form.Control
-                                            autoFocus onChange={(e) => setComment(e.target.value)}
-                                        />
-                                    </Form.Group>
-                                    <Form.Group
-                                        className="mb-3"
-                                        controlId="exampleForm.ControlTextarea1"
-                                    >
-                                        <Form.Label>Comment</Form.Label>
-                                        <Form.Control as="textarea" rows={3} />
-                                    </Form.Group>
-                                </Form>
+                                <SendForm />
                             </Modal.Body>
-                            <Modal.Footer>
-                                <Button variant="danger" onClick={handleCreateClose}>
-                                    Close
-                                </Button>
-                                <Button variant="success" onClick={submitContent}>
-                                    Send
-                                </Button>
-                            </Modal.Footer>
                         </Modal>
                         <Modal show={showE} onHide={handleEditClose}>
                             <Modal.Header closeButton>
@@ -369,7 +378,7 @@ function HomePage({ data }) {
 // This function gets called at build time
 export async function getServerSideProps() {
     // Fetch data from external API
-    const res = await fetch(`https://tc2005b-sem2023-production.up.railway.app/comments`)
+    const res = await fetch(`http://localhost:8080/comments`)
     const data = await res.json()
 
     // Pass data to the page via props
